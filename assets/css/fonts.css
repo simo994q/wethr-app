@@ -1,11 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
-@import url('https://fonts.cdnfonts.com/css/futura-pt');
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap");
+@import url("https://fonts.cdnfonts.com/css/futura-pt");
 
 :root {
-    --kanit: 'Kanit', sans-serif;
-    --futura: 'Futura pt', sans-serif;
+  --kanit: "Kanit", sans-serif;
+  --futura: "Futura pt", sans-serif;
 }
 
+/* temperature */
 h1 {
-    font-family: var(--kanit);
+  font-family: var(--kanit);
+  font-size: 8rem;
+  font-weight: 500;
+}
+
+/* location */
+h2 {
+  font-family: var(--kanit);
+  font-size: 4rem;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+/* clock */
+h3 {
+  font-family: var(--futura);
+  font-size: 5.4rem;
+  font-weight: 400;
+}
+
+/* date */
+h4 {
+  font-family: var(--futura);
+  font-size: 2.4rem;
+  font-weight: 400;
+}
+
+/* gadgets */
+h5 {
+  font-family: var(--futura);
+  font-size: 5rem;
+  font-weight: 400;
+}
+
+.circle-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 3rem;
+  justify-content: center;
+  height: 100%;
+}
+
+.units {
+  font-family: var(--futura);
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.white-text {
+  color: var(--white);
+}
+
+/* nav buttons */
+nav a {
+  font-family: var(--futura);
+  color: var(--black);
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: 400;
 }

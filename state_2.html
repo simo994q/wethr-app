@@ -4,35 +4,33 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oversigt</title>
+    <title>I dag</title>
     <link rel="stylesheet" href="assets/css/state_2.css" />
   </head>
   <body>
-    <div class="app">
+    <div id="app">
       <nav id="locationData">
-        <h2 id="location">Aalborg</h2>
-        <img src="assets/images/svg/location_on_FILL-1.svg" alt="Geo-tag" />
+        <h2 class="white-text" id="location">Aalborg</h2>
+        <img src="assets/images/svg/geo-tag_icon.svg" alt="Geo-tag" />
       </nav>
-      <div id="weatherStatus">
-        <img src="assets/images/svg/Icon weather-day-sunny-5.svg" alt="Sunny" />
-      </div>
-      <div id="temperature">
-        <h1>15</h1>
-      </div>
-      <div id="clock">
-        <h3>09:00</h3>
-      </div>
-      <div id="date">
-        <h4>Mandag 23 januar</h4>
+      <img
+        id="weatherStatus"
+        src="assets/images/svg/sun_icon.svg"
+        alt="Sunny"
+      />
+      <h1 id="temperature" class="white-text">15&#176;</h1>
+      <div id="date-time">
+        <h3 id="clock" class="white-text">09:00</h3>
+        <h4 id="date" class="white-text">Mandag 23 januar</h4>
       </div>
       <div id="gadgets">
-        <div class="circle wind">
-          <h5>3</h5>
-          <p class="units">m/s</p>
+        <div class="circle wind circle-text">
+          <h5 class="white-text">3</h5>
+          <p class="units white-text">m/s</p>
         </div>
-        <div class="circle rain">
-          <h5>0.1</h5>
-          <p class="units">mm</p>
+        <div class="circle rain circle-text">
+          <h5 class="white-text">0.1</h5>
+          <p class="units white-text">mm</p>
         </div>
       </div>
       <nav id="primaryNav">

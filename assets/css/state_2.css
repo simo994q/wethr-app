@@ -1,1 +1,36 @@
 @import url(globals.css);
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  background-image: url(../images/bg/blue-sky-with-clouds-background.png);
+}
+
+#locationData {
+  display: flex;
+  justify-content: center;
+  gap: 1.7rem;
+}
+
+#date-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#gadgets {
+  display: flex;
+  gap: 11.9rem;
+  text-align: center;
+}
+
+.circle {
+  height: 10.5rem;
+  width: 10.5rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 1000px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
