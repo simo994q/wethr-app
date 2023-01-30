@@ -4,8 +4,9 @@
 :root {
     --kanit: 'Kanit', sans-serif;
     --futura: 'Futura pt', sans-serif;
-}
-
-h1 {
-    font-family: var(--kanit);
+    --fs-table: 16px;
+    --fs-standard: 20px;
+    --fs-clock: 54px;
+    --fs-date: 24px;
+    --fs-nav: 30px;
 }
