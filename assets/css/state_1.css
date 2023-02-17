@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+:root {
+    --darkblue: #022635;
+    --lightblue: #668A9C;
+    --white: #FFF;
+    --black: #000;
+    --kanit: 'Kanit', sans-serif;
+    --futura: 'Futura pt', sans-serif;
+    --fs-table: 16px;
+    --fs-standard: 20px;
+    --fs-clock: 54px;
+    --fs-date: 24px;
+    --fs-nav: 30px;
+}
+
+body {
+    background-color: var(--darkblue);
+}
+.appStateOne {
+    background-color: var(--darkblue);
+    height: 100vh;
+    width: 400px;
+    margin: auto;
+    position: relative;
+}
+
+.s1LoadingTitle {
+    color: var(--white);
+    font-family: var(--kanit);
+    font-weight: 300;
+    font-size: 60px;
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    translate: -50% 0;
+}
+
+.s1LoadingAnimation {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    animation: loading 1s linear 0s infinite normal both;
+}
+
+@keyframes loading {
+    0% {rotate: 0deg;}
+    100% {rotate: 360deg;}
+}
+
+.s1LoadingText {
+    color: var(--white);
+    font-family: var(--futura);
+    font-weight: 400;
+    font-size: 40px;
+    position: absolute;
+    left: 50%;
+    bottom: 200px;
+    translate: -50% 0;
+}
