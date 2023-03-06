@@ -1,26 +1,11 @@
+@import url(globals.css);
 * {
     margin: 0;
     padding: 0;
 }
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
-@import url('https://fonts.cdnfonts.com/css/futura-pt');
-:root {
-    --darkblue: #022635;
-    --lightblue: #668A9C;
-    --white: #FFF;
-    --black: #000;
-    --kanit: 'Kanit', sans-serif;
-    --futura: 'Futura pt', sans-serif;
-    --fs-table: 16px;
-    --fs-standard: 20px;
-    --fs-clock: 54px;
-    --fs-date: 24px;
-    --fs-nav: 30px;
-}
 
-body {
-    background-color: var(--darkblue);
-}
+
+
 .appStateOne {
     background-color: var(--darkblue);
     height: 100vh;

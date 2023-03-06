@@ -5,3 +5,18 @@
 /* h1 {
     backdrop-filter: blur(2px);
 } */
+
+
+:root {
+    --darkblue: #022635;
+    --lightblue: #668A9C;
+    --white: #FFF;
+    --black: #000;
+    --kanit: 'Kanit', sans-serif;
+    --futura: 'Futura pt', sans-serif;
+    --fs-table: 16px;
+    --fs-standard: 20px;
+    --fs-clock: 54px;
+    --fs-date: 24px;
+    --fs-nav: 30px;
+}

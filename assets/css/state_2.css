@@ -1,1 +1,70 @@
 @import url(globals.css);
+* {
+    margin: 0;
+    padding: 0;
+    font-family: var(--kanit);
+    color: var(--white);
+}
+
+
+.appStateTwo {
+    background-color: #668A9C;
+    height: 100vh;
+    width: 400px;
+    margin: auto;
+    position: relative;
+}
+
+.s2FullLocation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    gap: 16px;
+}
+
+.s2DayLocation {
+    font-weight: 300;
+}
+
+.s2LocationSvg {
+    height: 30px;
+}
+
+.s2DayStatus {
+    position: absolute;
+    left: 50%;
+    top: 170px;
+    translate: -50% 0;
+    width: 100px;
+    height: 100px;
+}
+
+.s2DayTemp {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    font-size: 60px;
+}
+
+
+.s2FullDate {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: absolute;
+    left: 50%;
+    bottom: 300px;
+    translate: -50% 0;
+}
+.s2DayTime {
+
+}
+
+.s2DayDate
+
+/*
+.s2DayWind
+
+.s2DayRain */
