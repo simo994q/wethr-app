@@ -63,18 +63,6 @@ let myFakeData = {
 function buildStateTwo(data) {
     myApp.innerHTML = ""
     document.title = "App"
-    console.log(data);
-    //TODO Returnere et object med flere objects og arrays med data
-
-    //TODO "let dataindex = 0" dataindex skal ændre sig når man swiper
-
-    let precipitation = data.hourly.precipitation
-    let temperature = data.hourly.temperature_2m
-    let time = data.hourly.time
-    let windDirection = data.hourly.winddirection_10m
-    let windSpeed = data.hourly.windspeed_10m
-    //* Arrays
-
 
     myApp.classList.replace('appStateOne', 'appStateTwo')
 
@@ -125,6 +113,17 @@ function buildStateTwo(data) {
     fullDate.appendChild(dayTime)
     fullDate.appendChild(dayDate)
     
+        console.log(data);
+    //TODO Returnere et object med flere objects og arrays med data
+
+    //TODO "let dataindex = 0" dataindex skal ændre sig når man swiper
+
+    let precipitation = data.hourly.precipitation
+    let temperature = data.hourly.temperature_2m
+    let time = data.hourly.time
+    let windDirection = data.hourly.winddirection_10m
+    let windSpeed = data.hourly.windspeed_10m
+    //* Arrays
 };
     // buildNavigationBar()
 function buildNavigationBar () {
