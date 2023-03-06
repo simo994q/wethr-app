@@ -49,6 +49,7 @@ let myFakeData = {
 
 function buildStateTwo () {
     myApp.innerHTML = ""
+    document.title = "App"
 
     myApp.classList.replace('appStateOne', 'appStateTwo')
 
