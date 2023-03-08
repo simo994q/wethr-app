@@ -64,6 +64,12 @@ function buildStateTwo(data) {
     myApp.innerHTML = ""
     document.title = "App"
 
+    let precipitation = data.hourly.precipitation
+    let temperature = data.hourly.temperature_2m
+    let time = data.hourly.time
+    let windDirection = data.hourly.winddirection_10m
+    let windSpeed = data.hourly.windspeed_10m
+
     myApp.classList.replace('appStateOne', 'appStateTwo')
 
     let fullLocation = document.createElement('div')
@@ -89,20 +95,34 @@ function buildStateTwo(data) {
     fullDate.classList.add('s2FullDate')
 
     let dayTime = document.createElement('h3')
-    // dayTime.innerHTML = 
+    dayTime.innerHTML = data.hourly.time[0].slice(-5)
     dayTime.classList.add('s2DayTime')
 
     let dayDate = document.createElement('p')
-    dayDate.innerHTML = data.hourly.time[0] //TODO splice?
+    dayDate.innerHTML = data.hourly.time[0].slice(0, 10)
     dayDate.classList.add('s2DayDate')
 
-    let dayWind = document.createElement('figure')
-    // dayWind.innerHTML = `${myFakeData.wind}`
-    dayWind.classList.add('s2DayWind')
-    let dayRain = document.createElement('figure')
-    // dayRain.innerHTML = `${myFakeData.rain}`
-    dayRain.classList.add('s2DayRain')
 
+    let WindRainDiv = document.createElement('div')
+    WindRainDiv.classList.add('s2WindRainDiv')
+
+    let fullWind = document.createElement('div')
+    fullWind.classList.add('s2FullWindRain')
+    let dayWind = document.createElement('p')
+    dayWind.innerHTML = windSpeed[0]
+    dayWind.classList.add('s2DayWindRainP')
+    let windMetric = document.createElement('p')
+    windMetric.innerHTML = data.hourly_units.windspeed_10m
+    windMetric.classList.add('s2WindRainMetric')
+
+    let fullRain = document.createElement('div')
+    fullRain.classList.add('s2FullWindRain')
+    let dayRain = document.createElement('p')
+    dayRain.innerHTML = precipitation[0]
+    dayRain.classList.add('s2DayWindRainP')
+    let rainMetric = document.createElement('p')
+    rainMetric.innerHTML = data.hourly_units.precipitation
+    rainMetric.classList.add('s2WindRainMetric')
 
     myApp.appendChild(fullLocation)
     fullLocation.appendChild(dayLocation)
@@ -112,17 +132,22 @@ function buildStateTwo(data) {
     myApp.appendChild(fullDate)
     fullDate.appendChild(dayTime)
     fullDate.appendChild(dayDate)
+
+    myApp.appendChild(WindRainDiv)
+    WindRainDiv.appendChild(fullWind)
+    fullWind.appendChild(dayWind)
+    fullWind.appendChild(windMetric)
+    WindRainDiv.appendChild(fullRain)
+    fullRain.appendChild(dayRain)
+    fullRain.appendChild(rainMetric)
+
     
         console.log(data);
     //TODO Returnere et object med flere objects og arrays med data
 
     //TODO "let dataindex = 0" dataindex skal ændre sig når man swiper
 
-    let precipitation = data.hourly.precipitation
-    let temperature = data.hourly.temperature_2m
-    let time = data.hourly.time
-    let windDirection = data.hourly.winddirection_10m
-    let windSpeed = data.hourly.windspeed_10m
+
     //* Arrays
 };
     // buildNavigationBar()
