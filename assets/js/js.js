@@ -149,10 +149,10 @@ function buildStateTwo(data) {
 
 
     //* Arrays
+    buildNavigationBar()
 };
-    // buildNavigationBar()
 function buildNavigationBar () {
-
+  let fullNavBar = 
 };
 
 
