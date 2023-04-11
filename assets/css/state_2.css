@@ -103,3 +103,41 @@
 .s2DayWind
 
 .s2DayRain */
+
+
+
+.navMainClass {
+    width: 400px;
+    height: 50px;
+    background-color: beige;
+    display: flex;
+    gap: 0;
+    position: fixed;
+    bottom: 0;
+}
+
+
+
+.navMainClass button {
+    width: 50%;
+    color: var(--black);
+    font-size: 24px;
+    border: none;
+    outline: none;
+    /* backdrop-filter: opacity(50%);
+    backdrop-filter: blur(50px); */
+}
+
+.navClass1 button:first-of-type {
+    background-color: #fff;
+}
+.navClass1 button:last-of-type {
+    background-color: #ccc;
+}
+
+.navClass2 button:first-of-type {
+    background-color: #ccc;
+}
+.navClass2 button:last-of-type {
+    background-color: #fff;
+}

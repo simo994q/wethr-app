@@ -3,6 +3,26 @@ const myApp = document.getElementById('myApp');
 
 const api = "https://api.open-meteo.com/v1/forecast?latitude=57.05&longitude=9.92&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto"
 
+
+let apiTest = fetch(api)
+.then((apiResponse) => {
+  if (apiResponse.ok == true) {
+    return apiResponse.json()
+  } else if (apiResponse.ok == false) {
+    loadingText.innerHTML = "NO DATA"
+  }
+})
+.then((jsonResponse) => {
+  weatherData = jsonResponse
+    buildStateTwo(weatherData)
+})
+.catch((error) => {
+  console.error(error)
+})
+
+console.log(apiTest);
+let arrayOne = []
+
 buildStateOne()
 
 function buildStateOne() {
@@ -28,22 +48,7 @@ function buildStateOne() {
   myApp.appendChild(loadingText)
 
 
-  let apiTest = fetch(api)
-    .then((apiResponse) => {
-      if (apiResponse.ok == true) {
-        return apiResponse.json()
-      } else if (apiResponse.ok == false) {
-        loadingText.innerHTML = "NO DATA"
-      }
-    })
-    .then((jsonResponse) => {
-      weatherData = jsonResponse
-        buildStateTwo(weatherData)
-      console.log(apiTest);
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+
 
 };
 
@@ -53,20 +58,11 @@ function buildStateOne() {
 
 
 
-let myFakeData = {
-  location: "Aalborg",
-  status: "assets/images/svg/Icon weather-day-sunny-5.svg",
-  temp: "15",
-  time: "09:00",
-  date: "Mandag 23 januar",
-  wind: "2.6",
-  rain: "0.3"
-}
-
-
 function buildStateTwo(data) {
   myApp.innerHTML = ""
   document.title = "App"
+
+  let currentIndexTime = new Date().getHours()
 
   let precipitation = data.hourly.precipitation
   let temperature = data.hourly.temperature_2m
@@ -80,8 +76,16 @@ function buildStateTwo(data) {
   fullLocation.classList.add('s2FullLocation')
 
   let dayLocation = document.createElement('h1')
-  dayLocation.innerHTML = data.timezone
   dayLocation.classList.add('s2DayLocation')
+  let URL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${data.latitude}&lon=${data.longitude}`
+  fetch(URL)
+  .then((response) => response.json())
+  .then((data) => {
+      dayLocation.innerHTML = data.address.city
+  })
+  .catch((error) => {
+      console.error('Error:', error);
+  });
 
   let locationSvg = document.createElement('img')
   locationSvg.classList.add('s2LocationSvg')
@@ -92,18 +96,18 @@ function buildStateTwo(data) {
   dayStatus.classList.add('s2DayStatus')
 
   let dayTemp = document.createElement('h2')
-  dayTemp.innerHTML = `${temperature[0]}°`
+  dayTemp.innerHTML = `${temperature[currentIndexTime]}°`
   dayTemp.classList.add('s2DayTemp')
 
   let fullDate = document.createElement('div')
   fullDate.classList.add('s2FullDate')
 
   let dayTime = document.createElement('h3')
-  dayTime.innerHTML = data.hourly.time[0].slice(-5)
+  dayTime.innerHTML = time[currentIndexTime].slice(-5)
   dayTime.classList.add('s2DayTime')
 
   let dayDate = document.createElement('p')
-  dayDate.innerHTML = data.hourly.time[0].slice(0, 10)
+  dayDate.innerHTML = data.hourly.time[currentIndexTime].slice(0, 10)
   dayDate.classList.add('s2DayDate')
 
 
@@ -113,7 +117,7 @@ function buildStateTwo(data) {
   let fullWind = document.createElement('div')
   fullWind.classList.add('s2FullWindRain')
   let dayWind = document.createElement('p')
-  dayWind.innerHTML = windSpeed[0]
+  dayWind.innerHTML = windSpeed[currentIndexTime]
   dayWind.classList.add('s2DayWindRainP')
   let windMetric = document.createElement('p')
   windMetric.innerHTML = data.hourly_units.windspeed_10m
@@ -122,7 +126,7 @@ function buildStateTwo(data) {
   let fullRain = document.createElement('div')
   fullRain.classList.add('s2FullWindRain')
   let dayRain = document.createElement('p')
-  dayRain.innerHTML = precipitation[0]
+  dayRain.innerHTML = precipitation[currentIndexTime]
   dayRain.classList.add('s2DayWindRainP')
   let rainMetric = document.createElement('p')
   rainMetric.innerHTML = data.hourly_units.precipitation
@@ -153,11 +157,38 @@ function buildStateTwo(data) {
 
 
   //* Arrays
-  // buildNavigationBar()
+  buildNavigationBar('navClass1', data)
 };
-// function buildNavigationBar () {
-//   let fullNavBar = 
-// };
+
+
+function buildNavigationBar (navClass, data) {
+  let fullNavBar = document.createElement('nav')
+  fullNavBar.classList.remove('navMainClass', 'navClass1', 'navClass2')
+  fullNavBar.classList.add('navMainClass')
+  fullNavBar.classList.add(navClass)
+  
+  let navButtonDaily = document.createElement('button')
+  navButtonDaily.innerText = 'I dag'
+  navButtonDaily.addEventListener('click', () => buildStateTwo(data))
+  
+  let navButtonForecast = document.createElement('button')
+  navButtonForecast.innerText = 'Oversigt'
+  navButtonForecast.addEventListener('click', () => buildStateThree(data))
+
+  myApp.appendChild(fullNavBar)
+  fullNavBar.appendChild(navButtonDaily)
+  fullNavBar.appendChild(navButtonForecast)
+};
+
+function buildStateThree(data) {
+  myApp.innerHTML = ''
+
+
+
+
+
+  buildNavigationBar('navClass2', data)
+}
 
 
 
