@@ -96,7 +96,7 @@ function buildStateTwo(data) {
   dayStatus.classList.add('s2DayStatus')
 
   let dayTemp = document.createElement('h2')
-  dayTemp.innerHTML = `${temperature[currentIndexTime]}°`
+  dayTemp.innerHTML = `${Math.round(temperature[currentIndexTime])}°`
   dayTemp.classList.add('s2DayTemp')
 
   let fullDate = document.createElement('div')
@@ -226,9 +226,56 @@ function buildStateThree(data) {
       dayContainer.classList.add('s3DayContainer')
       allDaysContainer.appendChild(dayContainer)
 
+      let s3fullStatus = document.createElement('figure')
+      s3fullStatus.classList.add('s3fullStatus')
+      dayContainer.appendChild(s3fullStatus)
+      
+      
+
       let s3date = document.createElement('p')
       s3date.innerText = data.daily.time[i]
+      s3date.classList.add('s3date')
       dayContainer.appendChild(s3date)
+
+      let s3statusContainer = document.createElement('div')
+      s3statusContainer.classList.add('s3statusContainer')
+      s3fullStatus.appendChild(s3statusContainer)
+
+      let s3statusImg = document.createElement('img')
+      s3statusImg.src = "assets/images/svg/Icon weather-day-sunny-5.svg"
+      s3statusContainer.appendChild(s3statusImg)
+      let s3statusText = document.createElement('p')
+      s3statusText.innerText = 'Sol'
+      s3statusContainer.appendChild(s3statusText)
+
+
+
+
+      let s3tempContainer = document.createElement('div')
+      s3tempContainer.classList.add('s3tempContainer')
+      s3fullStatus.appendChild(s3tempContainer)
+
+      let s3tempValue = document.createElement('p')
+      s3tempValue.innerText = Math.round(data.daily.temperature_2m_max[i])
+      s3tempContainer.appendChild(s3tempValue)
+      let s3tempText = document.createElement('p')
+      s3tempText.innerText = 'Temp.'
+      s3tempContainer.appendChild(s3tempText)
+
+
+
+
+      let s3windContainer = document.createElement('div')
+      s3windContainer.classList.add('s3windContainer')
+      s3fullStatus.appendChild(s3windContainer)
+
+      let s3windImg = document.createElement('img')
+      s3windImg.src = "assets/images/svg/air_FILL0_wght400_GRAD0_opsz48.svg"
+      s3windContainer.appendChild(s3windImg)
+      let s3windText = document.createElement('p')
+      s3windText.innerText = `${Math.round(data.daily.windspeed_10m_max[i])}m/s`
+      s3windContainer.appendChild(s3windText)
+
     }
 
   buildNavigationBar('navClass2', data)
