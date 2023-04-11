@@ -7,3 +7,14 @@
 }
 
 
+.s3allDays {
+    padding-top: 40px;
+}
+
+.s3DayContainer {
+    width: 80%;
+    height: 120px;
+    background-color: black;
+    margin: 0 auto 14px auto;
+    border-radius: 10px;
+}

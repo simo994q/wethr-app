@@ -5,20 +5,20 @@ const api = "https://api.open-meteo.com/v1/forecast?latitude=57.05&longitude=9.9
 
 
 let apiTest = fetch(api)
-.then((apiResponse) => {
-  if (apiResponse.ok == true) {
-    return apiResponse.json()
-  } else if (apiResponse.ok == false) {
-    loadingText.innerHTML = "NO DATA"
-  }
-})
-.then((jsonResponse) => {
-  weatherData = jsonResponse
+  .then((apiResponse) => {
+    if (apiResponse.ok == true) {
+      return apiResponse.json()
+    } else if (apiResponse.ok == false) {
+      loadingText.innerHTML = "NO DATA"
+    }
+  })
+  .then((jsonResponse) => {
+    weatherData = jsonResponse
     buildStateTwo(weatherData)
-})
-.catch((error) => {
-  console.error(error)
-})
+  })
+  .catch((error) => {
+    console.error(error)
+  })
 
 console.log(apiTest);
 let arrayOne = []
@@ -79,13 +79,13 @@ function buildStateTwo(data) {
   dayLocation.classList.add('s2DayLocation')
   let URL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${data.latitude}&lon=${data.longitude}`
   fetch(URL)
-  .then((response) => response.json())
-  .then((data) => {
+    .then((response) => response.json())
+    .then((data) => {
       dayLocation.innerHTML = data.address.city
-  })
-  .catch((error) => {
+    })
+    .catch((error) => {
       console.error('Error:', error);
-  });
+    });
 
   let locationSvg = document.createElement('img')
   locationSvg.classList.add('s2LocationSvg')
@@ -161,19 +161,52 @@ function buildStateTwo(data) {
 };
 
 
-function buildNavigationBar (navClass, data) {
+function buildNavigationBar(navClass, data) {
   let fullNavBar = document.createElement('nav')
   fullNavBar.classList.remove('navMainClass', 'navClass1', 'navClass2')
   fullNavBar.classList.add('navMainClass')
   fullNavBar.classList.add(navClass)
-  
+
   let navButtonDaily = document.createElement('button')
   navButtonDaily.innerText = 'I dag'
-  navButtonDaily.addEventListener('click', () => buildStateTwo(data))
-  
+  navButtonDaily.addEventListener('click', () => {
+    let apiTest = fetch(api)
+  .then((apiResponse) => {
+    if (apiResponse.ok == true) {
+      return apiResponse.json()
+    } else if (apiResponse.ok == false) {
+      loadingText.innerHTML = "NO DATA"
+    }
+  })
+  .then((jsonResponse) => {
+    weatherData = jsonResponse
+    buildStateTwo(weatherData)
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+  })
+
   let navButtonForecast = document.createElement('button')
   navButtonForecast.innerText = 'Oversigt'
-  navButtonForecast.addEventListener('click', () => buildStateThree(data))
+  navButtonForecast.addEventListener('click', () => {
+    let apiTest2 = fetch('https://api.open-meteo.com/v1/forecast?latitude=57.05&longitude=9.97&hourly=temperature_2m&daily=weathercode,temperature_2m_max,windspeed_10m_max&windspeed_unit=ms&timezone=auto')
+    .then((apiResponse) => {
+      if (apiResponse.ok == true) {
+        return apiResponse.json()
+      } else if (apiResponse.ok == false) {
+        console.log('NO DATA');
+      }
+    })
+    .then((jsonResponse) => {
+      buildStateThree(jsonResponse)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+
+  }
+  )
 
   myApp.appendChild(fullNavBar)
   fullNavBar.appendChild(navButtonDaily)
@@ -182,13 +215,35 @@ function buildNavigationBar (navClass, data) {
 
 function buildStateThree(data) {
   myApp.innerHTML = ''
+  console.log(data);
 
+    let allDaysContainer = document.createElement('div')
+    allDaysContainer.classList.add('s3allDays')
+    myApp.appendChild(allDaysContainer)
 
+    for (let i = 0; i < 5; i++) {
+      let dayContainer = document.createElement('div')
+      dayContainer.classList.add('s3DayContainer')
+      allDaysContainer.appendChild(dayContainer)
 
-
+      let s3date = document.createElement('p')
+      s3date.innerText = data.daily.time[i]
+      dayContainer.appendChild(s3date)
+    }
 
   buildNavigationBar('navClass2', data)
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
