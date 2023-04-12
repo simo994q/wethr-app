@@ -1,8 +1,31 @@
 const myApp = document.getElementById("myApp");
 
+buildStateOne();
+
+getLocation();
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+  console.log(
+    "Latitude: " +
+      position.coords.latitude +
+      " Longitude: " +
+      position.coords.longitude
+  );
+  runApp(position)
+}
+
 const api =
   "https://api.open-meteo.com/v1/forecast?latitude=57.05&longitude=9.92&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto";
 
+function runApp (positionData) {
+  let api = `https://api.open-meteo.com/v1/forecast?latitude=${positionData.coords.latitude.toFixed(2)}&longitude=${positionData.coords.longitude.toFixed(2)}&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto`;
 let apiTest = fetch(api)
   .then((apiResponse) => {
     if (apiResponse.ok == true) {
@@ -18,11 +41,14 @@ let apiTest = fetch(api)
   .catch((error) => {
     console.error(error);
   });
+};
+
+
 
 console.log(apiTest);
 let arrayOne = [];
 
-buildStateOne();
+
 
 function buildStateOne() {
   myApp.innerHTML = "";
@@ -304,20 +330,3 @@ function buildStateThree(data) {
 }
 
 // Location API
-getLocation();
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
-}
-
-function showPosition(position) {
-  console.log(
-    "Latitude: " +
-      position.coords.latitude +
-      " Longitude: " +
-      position.coords.longitude
-  );
-}
