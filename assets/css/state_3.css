@@ -6,6 +6,17 @@
   font-family: var(--kanit);
   color: var(--white);
 }
+*::-webkit-scrollbar {
+    display: none;
+  }
+
+.appStateThree {
+    background-color: #668A9C;
+    height: 100%;
+    width: 400px;
+    margin: auto;
+    position: relative;
+}
 
 .s3allDays {
   padding-top: 40px;
@@ -13,6 +24,9 @@
 
 .s3secondContainer {
   margin-bottom: 14px;
+}
+.s3secondContainer:last-of-type {
+    padding-bottom: 50px;
 }
 
 .s3DayContainer {
@@ -24,11 +38,15 @@
   position: relative;
 }
 
+
 .s3dropDownArrow {
   position: absolute;
   bottom: 6px;
   right: 6px;
-  transform: rotate(180deg);
+  transition: 500ms;
+}
+.dropDownArrowRotate {
+    transform: rotate(180deg);
 }
 
 .s3dropDownBox {
@@ -38,12 +56,10 @@
   padding: 5px 2px;
   border-radius: 0 0 24px 24px;
   display: none;
-  /* transform: scaleY(0);
-  transition: transform 0.7 ease; */
 }
 
 .showDropdown {
-  transform: scaleY(1);
+  display: block;
 }
 
 .daySections {

@@ -51,6 +51,7 @@ function buildStateOne() {
 function buildStateTwo(data) {
   myApp.innerHTML = "";
   document.title = "App";
+  myApp.classList.replace('appStateThree', 'appStateTwo')
 
   let currentIndexTime = new Date().getHours();
 
@@ -201,6 +202,7 @@ function buildNavigationBar(navClass, data) {
 
 function buildStateThree(data) {
   myApp.innerHTML = "";
+  myApp.classList.replace('appStateTwo', 'appStateThree')
   console.log(data);
 
   let s3allDays = document.createElement("div");
@@ -221,15 +223,16 @@ function buildStateThree(data) {
       "assets/images/svg/chevron_right_FILL0_wght400_GRAD0_opsz48.svg";
     dropDownArrow.classList.add("s3dropDownArrow");
     dayContainer.appendChild(dropDownArrow);
-
-    dropDownArrow.addEventListener("click", () => {
-      let s3dropDownBox = document.querySelector(".s3dropDownBox");
-      s3dropDownBox.style.display = "block";
-    });
-
+    
+    
     let dropDownBox = document.createElement("section");
     dropDownBox.classList.add("s3dropDownBox");
     s3secondContainer.appendChild(dropDownBox);
+    
+    dropDownArrow.addEventListener("click", () => {
+      dropDownBox.classList.toggle('showDropdown')
+      dropDownArrow.classList.toggle('dropDownArrowRotate')
+    });
 
     for (let i = 0; i < 4; i++) {
       let daySections = document.createElement("div");
