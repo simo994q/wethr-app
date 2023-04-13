@@ -14,9 +14,9 @@ function getLocation() {
 function showPosition(position) {
   console.log(
     "Latitude: " +
-      position.coords.latitude +
-      " Longitude: " +
-      position.coords.longitude
+    position.coords.latitude +
+    " Longitude: " +
+    position.coords.longitude
   );
   runApp(position)
 }
@@ -24,29 +24,32 @@ function showPosition(position) {
 const api =
   "https://api.open-meteo.com/v1/forecast?latitude=57.05&longitude=9.92&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto";
 
-function runApp (positionData) {
-  let api = `https://api.open-meteo.com/v1/forecast?latitude=${positionData.coords.latitude.toFixed(2)}&longitude=${positionData.coords.longitude.toFixed(2)}&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto`;
-let apiTest = fetch(api)
-  .then((apiResponse) => {
-    if (apiResponse.ok == true) {
-      return apiResponse.json();
-    } else if (apiResponse.ok == false) {
-      loadingText.innerHTML = "NO DATA";
-    }
-  })
-  .then((jsonResponse) => {
-    weatherData = jsonResponse;
-    buildStateTwo(weatherData);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+function runApp(positionData) {
+  let api = `https://api.open-meteo.com/v1/forecast?latitude=${positionData.coords.latitude}&longitude=${positionData.coords.longitude}&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto`;
+
+  // console.log(apiTest);
+  let apiTest = fetch(api)
+    .then((apiResponse) => {
+      if (apiResponse.ok == true) {
+        return apiResponse.json();
+      } else if (apiResponse.ok == false) {
+        loadingText.innerHTML = "NO DATA";
+      }
+    })
+    .then((jsonResponse) => {
+      weatherData = jsonResponse;
+      buildStateTwo(weatherData);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 
 
-console.log(apiTest);
-let arrayOne = [];
+
+// console.log(apiTest);
+// let arrayOne = [];
 
 
 
@@ -98,7 +101,11 @@ function buildStateTwo(data) {
   fetch(URL)
     .then((response) => response.json())
     .then((data) => {
-      dayLocation.innerHTML = data.address.city;
+      if (data.address.city) {
+        dayLocation.innerHTML = data.address.city;
+      } else  {
+        dayLocation.innerHTML = data.address.village;
+      }
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -174,6 +181,8 @@ function buildStateTwo(data) {
   buildNavigationBar("navClass1", data);
 }
 
+
+
 function buildNavigationBar(navClass, data) {
   let fullNavBar = document.createElement("nav");
   fullNavBar.classList.remove("navMainClass", "navClass1", "navClass2");
@@ -183,7 +192,7 @@ function buildNavigationBar(navClass, data) {
   let navButtonDaily = document.createElement("button");
   navButtonDaily.innerText = "I dag";
   navButtonDaily.addEventListener("click", () => {
-    let apiTest = fetch(api)
+    let apiTest = fetch(`https://api.open-meteo.com/v1/forecast?latitude=${data.latitude}&longitude=${data.longitude}&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto`)
       .then((apiResponse) => {
         if (apiResponse.ok == true) {
           return apiResponse.json();
@@ -204,7 +213,7 @@ function buildNavigationBar(navClass, data) {
   navButtonForecast.innerText = "Oversigt";
   navButtonForecast.addEventListener("click", () => {
     let apiTest2 = fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=57.05&longitude=9.97&hourly=temperature_2m&daily=weathercode,temperature_2m_max,windspeed_10m_max&windspeed_unit=ms&timezone=auto"
+      `https://api.open-meteo.com/v1/forecast?latitude=${data.latitude}&longitude=${data.longitude}&hourly=temperature_2m&daily=weathercode,temperature_2m_max,windspeed_10m_max&windspeed_unit=ms&timezone=auto`
     )
       .then((apiResponse) => {
         if (apiResponse.ok == true) {
@@ -249,12 +258,12 @@ function buildStateThree(data) {
       "assets/images/svg/chevron_right_FILL0_wght400_GRAD0_opsz48.svg";
     dropDownArrow.classList.add("s3dropDownArrow");
     dayContainer.appendChild(dropDownArrow);
-    
-    
+
+
     let dropDownBox = document.createElement("section");
     dropDownBox.classList.add("s3dropDownBox");
     s3secondContainer.appendChild(dropDownBox);
-    
+
     dropDownArrow.addEventListener("click", () => {
       dropDownBox.classList.toggle('showDropdown')
       dropDownArrow.classList.toggle('dropDownArrowRotate')
