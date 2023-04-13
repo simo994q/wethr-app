@@ -103,8 +103,10 @@ function buildStateTwo(data) {
     .then((data) => {
       if (data.address.city) {
         dayLocation.innerHTML = data.address.city;
-      } else  {
+      } else if (data.address.city) {
         dayLocation.innerHTML = data.address.village;
+      } else if (data.address.town) {
+        dayLocation.innerHTML = data.address.town;
       }
     })
     .catch((error) => {
