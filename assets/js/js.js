@@ -269,7 +269,7 @@ function buildNavigationBar(navClass, data) {
   let navButtonDaily = document.createElement("button");
   navButtonDaily.innerText = "I dag";
   navButtonDaily.addEventListener("click", () => {
-    let apiTest = fetch(`https://api.open-meteo.com/v1/forecast?latitude=${data.latitude}&longitude=${data.longitude}&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto`)
+    let apiTest = fetch(`https://api.open-meteo.com/v1/forecast?latitude=${data.latitude}&longitude=${data.longitude}&hourly=temperature_2m,weathercode,precipitation,windspeed_10m,winddirection_10m&daily=weathercode,temperature_2m_max,windspeed_10m_max,winddirection_10m_dominant&windspeed_unit=ms&timezone=auto`)
       .then((apiResponse) => {
         if (apiResponse.ok == true) {
           return apiResponse.json();
