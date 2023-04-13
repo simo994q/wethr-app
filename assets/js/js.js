@@ -5,7 +5,7 @@ buildStateOne();
 getLocation();
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    navigator.geolocation.watchPosition(showPosition);
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
@@ -25,9 +25,9 @@ const api =
   "https://api.open-meteo.com/v1/forecast?latitude=57.05&longitude=9.92&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto";
 
 function runApp(positionData) {
-  let api = `https://api.open-meteo.com/v1/forecast?latitude=${positionData.coords.latitude}&longitude=${positionData.coords.longitude}&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto`;
 
-  // console.log(apiTest);
+  let api = `https://api.open-meteo.com/v1/forecast?latitude=${positionData.coords.latitude}&longitude=${positionData.coords.longitude}&hourly=temperature_2m,weathercode,precipitation,windspeed_10m,winddirection_10m&daily=weathercode,temperature_2m_max,windspeed_10m_max,winddirection_10m_dominant&windspeed_unit=ms&timezone=auto`
+
   let apiTest = fetch(api)
     .then((apiResponse) => {
       if (apiResponse.ok == true) {
@@ -77,12 +77,14 @@ function buildStateOne() {
 
 // `https://api.open-meteo.com/v1/forecast?latitude=${inputLat}&longitude=${inputLong}&hourly=temperature_2m,precipitation,windspeed_10m,winddirection_10m&windspeed_unit=ms&timezone=auto`
 
+const timeNow = new Date().getHours()
+
+let currentIndexTime = new Date().getHours();
 function buildStateTwo(data) {
   myApp.innerHTML = "";
   document.title = "App";
   myApp.classList.replace('appStateThree', 'appStateTwo')
 
-  let currentIndexTime = new Date().getHours();
 
   let precipitation = data.hourly.precipitation;
   let temperature = data.hourly.temperature_2m;
@@ -103,7 +105,7 @@ function buildStateTwo(data) {
     .then((data) => {
       if (data.address.city) {
         dayLocation.innerHTML = data.address.city;
-      } else if (data.address.city) {
+      } else if (data.address.village) {
         dayLocation.innerHTML = data.address.village;
       } else if (data.address.town) {
         dayLocation.innerHTML = data.address.town;
@@ -118,8 +120,30 @@ function buildStateTwo(data) {
   locationSvg.src = "assets/images/svg/location_on_FILL-1.svg";
 
   let dayStatus = document.createElement("img"); //TODO Switch-funktion til status
-  dayStatus.src = "assets/images/svg/Icon weather-day-sunny-5.svg";
   dayStatus.classList.add("s2DayStatus");
+  console.log(data.hourly.weathercode[currentIndexTime]);
+  switch (data.hourly.weathercode[currentIndexTime]) {
+    case 0:
+      dayStatus.src = "assets/images/svg/Icon weather-day-sunny-5.svg"; //* sunny
+      break;
+    case 1:
+    case 2:
+    case 3:
+      dayStatus.src = "assets/images/svg/Icon weather-day-cloudy.svg" //* cloudy
+      break;
+    case 51:
+    case 53:
+    case 55:
+    case 56:
+    case 57:
+    case 61:
+    case 63:
+    case 65:
+    case 66:
+    case 67:
+      dayStatus.src = "assets/images/svg/Icon weather-rain-wind.svg" //*rain
+  }
+
 
   let dayTemp = document.createElement("h2");
   dayTemp.innerHTML = `${Math.round(temperature[currentIndexTime])}°`;
@@ -142,7 +166,7 @@ function buildStateTwo(data) {
   let fullWind = document.createElement("div");
   fullWind.classList.add("s2FullWindRain");
   let dayWind = document.createElement("p");
-  dayWind.innerHTML = windSpeed[currentIndexTime];
+  dayWind.innerHTML = windSpeed[currentIndexTime].toFixed(1);
   dayWind.classList.add("s2DayWindRainP");
   let windMetric = document.createElement("p");
   windMetric.innerHTML = data.hourly_units.windspeed_10m;
@@ -156,6 +180,58 @@ function buildStateTwo(data) {
   let rainMetric = document.createElement("p");
   rainMetric.innerHTML = data.hourly_units.precipitation;
   rainMetric.classList.add("s2WindRainMetric");
+
+
+
+  let swipeElement = document.createElement('div')
+  swipeElement.classList.add('swipeElement')
+
+  let xDown = null;
+  let yDown = null;
+
+  swipeElement.addEventListener("pointerdown", handleTouchStart, false);
+  swipeElement.addEventListener("pointermove", handleTouchMove, false);
+
+  function handleTouchStart(evt) {
+    xDown = evt.clientX;
+    yDown = evt.clientY;
+  }
+
+  function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+      return;
+    }
+
+    let xUp = evt.clientX;
+    let yUp = evt.clientY;
+
+    const xDiff = xDown - xUp;
+    const yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) { // horizontal swipe detected
+      if (xDiff > 0) {
+        console.log("swipe left");
+        currentIndexTime++
+        // console.log(currentIndexTime);
+        buildStateTwo(data)
+
+      } else if (currentIndexTime > timeNow) {
+        console.log("swipe right");
+        currentIndexTime--
+        // console.log(currentIndexTime);
+        buildStateTwo(data)
+      }
+    }
+    // reset values
+    xDown = null;
+    yDown = null;
+    xUp = null;
+    yUp = null;
+  }
+
+
+
+  myApp.appendChild(swipeElement)
 
   myApp.appendChild(fullLocation);
   fullLocation.appendChild(dayLocation);
@@ -179,7 +255,6 @@ function buildStateTwo(data) {
 
   //TODO "let dataindex = 0" dataindex skal ændre sig når man swiper
 
-  //* Arrays
   buildNavigationBar("navClass1", data);
 }
 
@@ -215,7 +290,7 @@ function buildNavigationBar(navClass, data) {
   navButtonForecast.innerText = "Oversigt";
   navButtonForecast.addEventListener("click", () => {
     let apiTest2 = fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${data.latitude}&longitude=${data.longitude}&hourly=temperature_2m&daily=weathercode,temperature_2m_max,windspeed_10m_max&windspeed_unit=ms&timezone=auto`
+      `https://api.open-meteo.com/v1/forecast?latitude=${data.latitude}&longitude=${data.longitude}&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,temperature_2m_max,windspeed_10m_max,winddirection_10m_dominant&windspeed_unit=ms&timezone=auto`
     )
       .then((apiResponse) => {
         if (apiResponse.ok == true) {
@@ -340,4 +415,6 @@ function buildStateThree(data) {
   buildNavigationBar("navClass2", data);
 }
 
-// Location API
+
+
+
