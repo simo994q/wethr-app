@@ -6,17 +6,18 @@
   font-family: var(--kanit);
   color: var(--white);
 }
+
 *::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 
 .appStateThree {
-    background-color: #668A9C;
-    height: 100%;
-    width: 400px;
-    margin: auto;
-    position: relative;
+  background-color: #668A9C;
+  height: 100%;
+  width: 400px;
+  margin: auto;
+  position: relative;
 }
 
 .s3allDays {
@@ -26,8 +27,9 @@
 .s3secondContainer {
   margin-bottom: 14px;
 }
+
 .s3secondContainer:last-of-type {
-    padding-bottom: 50px;
+  padding-bottom: 50px;
 }
 
 .s3DayContainer {
@@ -44,15 +46,17 @@
   position: absolute;
   bottom: 6px;
   right: 6px;
+  transform: rotate(180deg);
   transition: 500ms;
 }
+
 .dropDownArrowRotate {
-    transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .s3dropDownBox {
   width: 70%;
-  background-color: blue;
+  background-color: rgb(24, 24, 131);
   margin: 0 auto;
   padding: 5px 2px;
   border-radius: 0 0 24px 24px;
@@ -65,9 +69,16 @@
 
 .daySections {
   display: grid;
-  grid-template-columns: 0.7fr 0.5fr 0.5fr 2.3fr 1fr;
+  grid-template-columns: 1.4fr 0.7fr 0.7fr 2.1fr 1fr 0.7fr;
   grid-auto-flow: row;
   margin-bottom: 6px;
+  text-align: center;
+}
+
+.daySections img {
+  margin: auto;
+  width: 20px;
+  height: 20px;
 }
 
 .s3date {
@@ -124,11 +135,12 @@
   justify-content: center;
   align-items: center;
 }
+
 .s3windContainer img {
   width: 40px;
   height: 40px;
 }
+
 .s3windContainer p {
   font-size: 20px;
 }
-

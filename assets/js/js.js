@@ -121,7 +121,6 @@ function buildStateTwo(data) {
 
   let dayStatus = document.createElement("img"); //TODO Switch-funktion til status
   dayStatus.classList.add("s2DayStatus");
-  console.log(data.hourly.weathercode[currentIndexTime]);
   switch (data.hourly.weathercode[currentIndexTime]) {
     case 0:
       dayStatus.src = "assets/images/svg/Icon weather-day-sunny-5.svg"; //* sunny
@@ -141,6 +140,9 @@ function buildStateTwo(data) {
     case 65:
     case 66:
     case 67:
+    case 80:
+    case 81:
+    case 82:
       dayStatus.src = "assets/images/svg/Icon weather-rain-wind.svg" //*rain
   }
 
@@ -230,7 +232,6 @@ function buildStateTwo(data) {
   }
 
 
-
   myApp.appendChild(swipeElement)
 
   myApp.appendChild(fullLocation);
@@ -257,7 +258,6 @@ function buildStateTwo(data) {
 
   buildNavigationBar("navClass1", data);
 }
-
 
 
 function buildNavigationBar(navClass, data) {
@@ -312,7 +312,11 @@ function buildNavigationBar(navClass, data) {
   fullNavBar.appendChild(navButtonForecast);
 }
 
+
+
+
 function buildStateThree(data) {
+  let tempIndex = 0;
   myApp.innerHTML = "";
   myApp.classList.replace('appStateTwo', 'appStateThree')
   console.log(data);
@@ -346,27 +350,35 @@ function buildStateThree(data) {
       dropDownArrow.classList.toggle('dropDownArrowRotate')
     });
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 24; i++) {
       let daySections = document.createElement("div");
       daySections.classList.add("daySections");
       dropDownBox.appendChild(daySections);
 
       let dropDownTime = document.createElement("p");
       daySections.appendChild(dropDownTime);
+      dropDownTime.innerText = data.hourly.time[tempIndex].slice(-5)
 
       let dropDownStatus = document.createElement("img");
-      dropDownStatus.src = null; //TODO status icon
+      dropDownStatus.src = imgSwitch(data.hourly.weathercode[tempIndex]);
       daySections.appendChild(dropDownStatus);
 
       let dropDownTemp = document.createElement("p");
       daySections.appendChild(dropDownTemp);
+      dropDownTemp.innerText = `${Math.round(data.hourly.temperature_2m[tempIndex])}°`
+
+      let randomDiv = document.createElement('div')
+      daySections.appendChild(randomDiv);
 
       let dropDownWind = document.createElement("p");
       daySections.appendChild(dropDownWind);
+      dropDownWind.innerText = data.hourly.windspeed_10m[tempIndex].toFixed(1)
 
       let dropDownWindDir = document.createElement("img");
-      dropDownWindDir.src = null; //TODO wind direction icon here
+      dropDownWindDir.src = 'assets/images/svg/iconmonstr-arrow-up-alt-lined-240.png'
       daySections.appendChild(dropDownWindDir);
+      dropDownWindDir.style.transform = `rotate(${data.hourly.winddirection_10m[tempIndex]}deg)`
+      tempIndex++
     }
 
     let s3fullStatus = document.createElement("figure");
@@ -417,4 +429,27 @@ function buildStateThree(data) {
 
 
 
-
+function imgSwitch(statusIndex) {
+  switch (statusIndex) {
+    case 0:
+      return "assets/images/svg/Icon weather-day-sunny-5.svg"; //* sunny
+    case 1:
+    case 2:
+    case 3:
+      return "assets/images/svg/Icon weather-day-cloudy.svg" //* cloudy
+    case 51:
+    case 53:
+    case 55:
+    case 56:
+    case 57:
+    case 61:
+    case 63:
+    case 65:
+    case 66:
+    case 67:
+    case 80:
+    case 81:
+    case 82:
+      return "assets/images/svg/Icon weather-rain-wind.svg" //*rain
+  }
+};
