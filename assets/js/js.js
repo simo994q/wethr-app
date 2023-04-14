@@ -314,6 +314,18 @@ function buildNavigationBar(navClass, data) {
 
 
 
+let fiveDays = [
+  "I dag",
+  "I morgen",
+  new Date().getDay
+]
+
+
+
+const Xmas95 = new Date("December 25, 1995 23:15:30");
+const options = { weekday: "long" };
+console.log(new Intl.DateTimeFormat("da-DK", options).format(Xmas95));
+
 
 function buildStateThree(data) {
   let tempIndex = 0;
@@ -385,8 +397,9 @@ function buildStateThree(data) {
     s3fullStatus.classList.add("s3fullStatus");
     dayContainer.appendChild(s3fullStatus);
 
+
     let s3date = document.createElement("p");
-    s3date.innerText = data.daily.time[i];
+    s3date.innerText = dateSwitch(currentDay)[i];
     s3date.classList.add("s3date");
     dayContainer.appendChild(s3date);
 
@@ -395,10 +408,10 @@ function buildStateThree(data) {
     s3fullStatus.appendChild(s3statusContainer);
 
     let s3statusImg = document.createElement("img");
-    s3statusImg.src = "assets/images/svg/Icon weather-day-sunny-5.svg";
+    s3statusImg.src = imgSwitch(data.daily.weathercode[i]);
     s3statusContainer.appendChild(s3statusImg);
     let s3statusText = document.createElement("p");
-    s3statusText.innerText = "Sol";
+    s3statusText.innerText = statusSwitch(data.daily.weathercode[i])
     s3statusContainer.appendChild(s3statusText);
 
     let s3tempContainer = document.createElement("div");
@@ -428,6 +441,62 @@ function buildStateThree(data) {
 }
 
 
+const currentDay = new Date().getDay();
+const xmas95 = new Date();
+const weekday = xmas95.getDay();
+
+console.log(weekday)
+
+
+function dateSwitch(index) {
+  switch (index) {
+    case 0:
+      return [
+        "I dag",
+        "I morgen",
+        "Onsdag",
+        "Torsdag",
+        "Fredag"
+      ]
+    case 1:
+      return [
+        "I dag",
+        "I morgen",
+        "Torsdag",
+        "Fredag",
+        "Lørdag"
+      ]
+    case 2:
+      return [
+        "I dag",
+        "I morgen",
+        "Fredag",
+        "Lørdag",
+        "Søndag"
+      ]
+    case 3:
+      return [
+        "I dag",
+        "I morgen",
+        "Torsdag",
+        "Fredag",
+        "Lørdag"
+      ]
+    case 4:
+      return [
+        "I dag",
+        "I morgen",
+        "Torsdag",
+        "Fredag",
+        "Lørdag"
+      ]
+
+  }
+};
+
+
+
+
 
 function imgSwitch(statusIndex) {
   switch (statusIndex) {
@@ -451,5 +520,31 @@ function imgSwitch(statusIndex) {
     case 81:
     case 82:
       return "assets/images/svg/Icon weather-rain-wind.svg" //*rain
+  }
+};
+
+
+function statusSwitch(statusIndex) {
+  switch (statusIndex) {
+    case 0:
+      return "Sol"
+    case 1:
+    case 2:
+    case 3:
+      return "Skyer"
+    case 51:
+    case 53:
+    case 55:
+    case 56:
+    case 57:
+    case 61:
+    case 63:
+    case 65:
+    case 66:
+    case 67:
+    case 80:
+    case 81:
+    case 82:
+      return "Regn"
   }
 };
