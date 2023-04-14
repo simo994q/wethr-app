@@ -322,9 +322,9 @@ let fiveDays = [
 
 
 
-const Xmas95 = new Date("December 25, 1995 23:15:30");
-const options = { weekday: "long" };
-console.log(new Intl.DateTimeFormat("da-DK", options).format(Xmas95));
+// const Xmas95 = new Date("December 25, 1995 23:15:30");
+// const options = { weekday: "long" };
+// console.log(new Intl.DateTimeFormat("da-DK", options).format(Xmas95));
 
 
 function buildStateThree(data) {
@@ -399,7 +399,8 @@ function buildStateThree(data) {
 
 
     let s3date = document.createElement("p");
-    s3date.innerText = dateSwitch(currentDay)[i];
+    s3date.innerText = data.daily.time[i]
+    // s3date.innerText = dateSwitch(currentDay)[i];
     s3date.classList.add("s3date");
     dayContainer.appendChild(s3date);
 
@@ -441,58 +442,58 @@ function buildStateThree(data) {
 }
 
 
-const currentDay = new Date().getDay();
-const xmas95 = new Date();
-const weekday = xmas95.getDay();
+// const currentDay = new Date().getDay();
+// const xmas95 = new Date();
+// const weekday = xmas95.getDay();
 
-console.log(weekday)
+// console.log(weekday)
 
 
-function dateSwitch(index) {
-  switch (index) {
-    case 0:
-      return [
-        "I dag",
-        "I morgen",
-        "Onsdag",
-        "Torsdag",
-        "Fredag"
-      ]
-    case 1:
-      return [
-        "I dag",
-        "I morgen",
-        "Torsdag",
-        "Fredag",
-        "Lørdag"
-      ]
-    case 2:
-      return [
-        "I dag",
-        "I morgen",
-        "Fredag",
-        "Lørdag",
-        "Søndag"
-      ]
-    case 3:
-      return [
-        "I dag",
-        "I morgen",
-        "Torsdag",
-        "Fredag",
-        "Lørdag"
-      ]
-    case 4:
-      return [
-        "I dag",
-        "I morgen",
-        "Torsdag",
-        "Fredag",
-        "Lørdag"
-      ]
+// function dateSwitch(index) {
+//   switch (index) {
+//     case 0:
+//       return [
+//         "I dag",
+//         "I morgen",
+//         "Onsdag",
+//         "Torsdag",
+//         "Fredag"
+//       ]
+//     case 1:
+//       return [
+//         "I dag",
+//         "I morgen",
+//         "Torsdag",
+//         "Fredag",
+//         "Lørdag"
+//       ]
+//     case 2:
+//       return [
+//         "I dag",
+//         "I morgen",
+//         "Fredag",
+//         "Lørdag",
+//         "Søndag"
+//       ]
+//     case 3:
+//       return [
+//         "I dag",
+//         "I morgen",
+//         "Torsdag",
+//         "Fredag",
+//         "Lørdag"
+//       ]
+//     case 4:
+//       return [
+//         "I dag",
+//         "I morgen",
+//         "Torsdag",
+//         "Fredag",
+//         "Lørdag"
+//       ]
 
-  }
-};
+//   }
+// };
 
 
 
