@@ -397,7 +397,6 @@ function buildStateThree(data) {
     s3fullStatus.classList.add("s3fullStatus");
     dayContainer.appendChild(s3fullStatus);
 
-
     let s3date = document.createElement("p");
     s3date.innerText = data.daily.time[i]
     // s3date.innerText = dateSwitch(currentDay)[i];
@@ -496,6 +495,14 @@ function buildStateThree(data) {
 // };
 
 
+
+// console.log(
+//   new Date().getDay(),
+//   new Date().getDay()+1,
+//   new Date().getDay()+2,
+//   new Date().getDay()+3,
+//   new Date().getDay()+4
+// );
 
 
 
